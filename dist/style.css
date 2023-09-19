@@ -1,0 +1,30 @@
+*,
+*::before,
+*::after,
+html,
+body {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  font-size: 1rem;
+  color: var(--font-color);
+  font-family: "Nunito", sans-serif;
+}
+
+.main-container > .location-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.weather-main > #temp-description {
+    display: flex;
+    flex-direction: column;
+}
+
+.main-container > #loading {
+    display: none;
+}
+
+#loading.active {
+    display: block;
+}
