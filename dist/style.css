@@ -1,3 +1,7 @@
+:root {
+    --hourly-element-width: 2rem;
+}
+
 *,
 *::before,
 *::after,
@@ -11,20 +15,108 @@ body {
   font-family: "Nunito", sans-serif;
 }
 
-.main-container > .location-details {
-    display: flex;
-    flex-direction: column;
+ul {
+  list-style: none;
+}
+
+.content > .location-details {
+  display: flex;
+  flex-direction: column;
 }
 
 .weather-main > #temp-description {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-container {
+  padding: 4rem 20%;
 }
 
 .main-container > #loading {
-    display: none;
+  display: none;
 }
 
+.content > #error {
+  display: none;
+}
+
+#error.active,
 #loading.active {
-    display: block;
+  display: block;
+}
+
+.weather-main > #hourly-display {
+  display: flex;
+  /* flex-direction: column; */
+  gap: 4rem;
+}
+
+.hourly-wrapper-item {
+  display: flex;
+  flex-direction: column;
+}
+
+#hourly-display {
+  position: relative;
+  overflow: hidden;
+  padding: 4rem 4rem;
+}
+
+.hourly-content {
+  display: flex;
+  gap: 2rem;
+  width: 100%;
+  overflow: scroll;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.hourly-content > .hourly-wrapper-item {
+    width: var(--hourly-element-width);
+}
+
+/* hide the scrollbar from the hourly display carousel */
+.hourly-content::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+.hourly-content > li.hourly-wrapper-item {
+  width: 100%;
+  height: 100%;
+  /* flex: 1 0 5%; */
+}
+
+.slide-arrow {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  height: 2rem;
+  background-color: white;
+  border: none;
+  width: 2rem;
+  font-size: 2rem;
+  /* padding-top: 1rem; */
+  cursor: pointer;
+  opacity: 0.5;
+  transition: opacity 100ms;
+}
+.slide-arrow:hover,
+.slide-arrow:focus {
+  opacity: 1;
+}
+#slide-arrow-prev {
+  left: 0;
+  padding-left: 0.25rem;
+  border-radius: 0 2rem 2rem 0;
+}
+#slide-arrow-next {
+  right: 0;
+  padding-left: 0.75rem;
+  border-radius: 2rem 0 0 2rem;
 }
