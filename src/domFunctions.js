@@ -33,11 +33,11 @@ async function populateDOM(data) {
     tempDescSky.textContent = `${processedWeatherData.weather.current.sky_conditions}`;
     tempDescFeelsLike.textContent = `Feels like ${processedWeatherData.weather.current.feelsLike_c}°C`;
 
-    //    createHourlyDisplay(processedWeatherData.hourly);
-    // hourlyDisplay.textContent = createHourlyDisplay(processedWeatherData.hourly);
-    // console.log(processedWeatherData.hourly);
+    showDailyForecastConditions(processedWeatherData);
     createHourlyDisplay(processedWeatherData.hourly);
-    hourlyDisplaySlider();
+    createWeeklyDisplay(processedWeatherData.daily);
+    
+    
   } catch (err) {
     console.log(err);
   }
@@ -46,9 +46,9 @@ async function populateDOM(data) {
 function createHourlyDisplay(hourlyData) {
   const mainContainer = document.querySelector(".weather-main");
   const hourlyDisplay = document.querySelector("#hourly-display");
-  const listWrapper = document.querySelector(".hourly-content");
+  const hourlyListWrapper = document.querySelector(".hourly-content");
 
-  listWrapper.textContent = "";
+  hourlyListWrapper.textContent = "";
 
   for (let i = 0; i < 24; i++) {
     const hourlyContainer = document.createElement("li");
@@ -64,32 +64,63 @@ function createHourlyDisplay(hourlyData) {
     temp.textContent = `${hourlyData[i].temperature_c}°C`;
 
     hourlyContainer.append(time, temp);
-    listWrapper.append(hourlyContainer);
-    hourlyDisplay.appendChild(listWrapper);
+    hourlyListWrapper.append(hourlyContainer);
+    hourlyDisplay.appendChild(hourlyListWrapper);
   }
   mainContainer.appendChild(hourlyDisplay);
+  hourlyDisplaySlider();
 }
 
 function hourlyDisplaySlider() {
-  const hourlyDisplayElement = document.querySelector(".hourly-wrapper-item");
-  const listWrapper = document.querySelector(".hourly-content");
+  const hourlyListWrapper = document.querySelector(".hourly-content");
   const prevButton = document.getElementById("slide-arrow-prev");
   const nextButton = document.getElementById("slide-arrow-next");
 
   nextButton.addEventListener("click", (e) => {
-    const slideWidth = listWrapper.clientWidth;
-    listWrapper.scrollLeft += slideWidth;
+    const slideWidth = hourlyListWrapper.clientWidth;
+    hourlyListWrapper.scrollLeft += slideWidth;
   });
 
   prevButton.addEventListener("click", () => {
-    const slideWidth = listWrapper.clientWidth;
-    listWrapper.scrollLeft -= slideWidth;
+    const slideWidth = hourlyListWrapper.clientWidth;
+    hourlyListWrapper.scrollLeft -= slideWidth;
   });
 }
 
-function createWeeklyDisplay(info) {
+function createWeeklyDisplay(weeklyData) {
   const mainContainer = document.querySelector(".weather-main");
-  const hourlyDisplay = document.querySelector("#hourly-display");
+  const weeklyDisplay = document.querySelector("#weekly-display");
+  const weeklyListWrapper = document.querySelector(".weekly-content");
+
+  weeklyListWrapper.textContent = "";
+
+  for(let j = 1; j < 8; j++) {
+    const weeklyContainer = document.createElement("li");
+    weeklyContainer.classList.add("weekly-wrapper-item");
+    weeklyContainer.id = `${j}`;
+
+    const day = document.createElement('span');
+    day.classList.add("weekly-day");
+    day.textContent = weeklyData[j].date;
+
+    const minTemp = document.createElement('span');
+    minTemp.classList.add("weekly-min-temp");
+    minTemp.textContent = weeklyData[j].min_temperature_c;
+
+    const maxTemp = document.createElement('span');
+    maxTemp.classList.add("weekly-max-temp");
+    maxTemp.textContent = weeklyData[j].max_temperature_c;
+
+    weeklyContainer.append(day, minTemp, maxTemp);
+    weeklyListWrapper.appendChild(weeklyContainer)
+    weeklyDisplay.appendChild(weeklyListWrapper);
+  }
+  mainContainer.appendChild(weeklyDisplay);
+}
+
+function showDailyForecastConditions(data) {
+    const conditionsText = document.querySelector("#daily-forecast-conditions");
+    conditionsText.textContent = data.weather.forecast.daily_condition;
 }
 
 function showMessage(elementId) {

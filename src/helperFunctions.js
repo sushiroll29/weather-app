@@ -30,4 +30,4 @@ function searchWeatherByCity() {
 }
 
 
-export { extractDateAndTime, searchWeatherByCity }
+export { extractDateAndTime, searchWeatherByCity, formatDate }

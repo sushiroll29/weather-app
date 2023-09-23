@@ -1,5 +1,5 @@
 import { showMessage, hideMessage } from "./domFunctions";
-import { extractDateAndTime } from "./helperFunctions";
+import { extractDateAndTime, formatDate } from "./helperFunctions";
 
 async function fetchWeatherData(city) {
   let weatherData = "";
@@ -33,6 +33,9 @@ function processWeatherData(data) {
         feelsLike_f: data.current.feelsLike_f,
         sky_conditions: data.current.condition.text,
       },
+      forecast: {
+        daily_condition: data.forecast.forecastday[0].day.condition.text,
+      }
     },
     hourly: [],
     daily: [],
@@ -44,6 +47,24 @@ function processWeatherData(data) {
       // icon: ,
       temperature_c: data.forecast.forecastday[0].hour[i].temp_c,
       temperature_f: data.forecast.forecastday[0].hour[i].temp_f,
+    };
+  }
+
+  for (let j = 1; j < 8; j++) {
+    const timestamp = data.forecast.forecastday[j].date_epoch;
+    const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+    const newDate = new Date();
+    newDate.setTime(timestamp*1000);
+    processedData.daily[j] = {
+        // date: formatDate(data.forecast.forecastday[j].date),
+        date: days[newDate.getDay()],
+        min_temperature_c: data.forecast.forecastday[j].day.mintemp_c,
+        max_temperature_c: data.forecast.forecastday[j].day.maxtemp_c,
+        //icon
+    //   time: extractDateAndTime(data.forecast.forecastday[0].hour[i].time).time,
+    //   // icon: ,
+    //   temperature_c: data.forecast.forecastday[0].hour[i].temp_c,
+    //   temperature_f: data.forecast.forecastday[0].hour[i].temp_f,
     };
   }
   return processedData;
