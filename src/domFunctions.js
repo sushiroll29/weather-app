@@ -2,16 +2,12 @@ import { fetchWeatherData, processWeatherData } from "./apiFunctions";
 import { extractDateAndTime } from "./helperFunctions";
 
 async function populateDOM(data) {
-  const mainContainer = document.querySelector(".weather-main");
-  // const error = document.querySelector(".error");
   const locationTitle = document.querySelector(".location-title");
   const locationDate = document.querySelector("#location-date");
   const locationTime = document.querySelector("#location-time");
   const tempText = document.querySelector("#temp-text");
-  // const tempIcon = document.querySelector("#temp-icon");
   const tempDescSky = document.querySelector("#sky-conditions");
   const tempDescFeelsLike = document.querySelector("#feels-like");
-  const hourlyDisplay = document.querySelector("#hourly-display");
 
   try {
     const weatherData = await fetchWeatherData(`${data}`);
@@ -34,10 +30,9 @@ async function populateDOM(data) {
     tempDescFeelsLike.textContent = `Feels like ${processedWeatherData.weather.current.feelsLike_c}°C`;
 
     showDailyForecastConditions(processedWeatherData);
+    createDailyConditionsGrid(processedWeatherData.dailyConditions);
     createHourlyDisplay(processedWeatherData.hourly);
     createWeeklyDisplay(processedWeatherData.daily);
-    
-    
   } catch (err) {
     console.log(err);
   }
@@ -94,33 +89,48 @@ function createWeeklyDisplay(weeklyData) {
 
   weeklyListWrapper.textContent = "";
 
-  for(let j = 1; j < 8; j++) {
+  for (let j = 1; j < 8; j++) {
     const weeklyContainer = document.createElement("li");
     weeklyContainer.classList.add("weekly-wrapper-item");
     weeklyContainer.id = `${j}`;
 
-    const day = document.createElement('span');
+    const day = document.createElement("span");
     day.classList.add("weekly-day");
     day.textContent = weeklyData[j].date;
 
-    const minTemp = document.createElement('span');
+    const minTemp = document.createElement("span");
     minTemp.classList.add("weekly-min-temp");
     minTemp.textContent = weeklyData[j].min_temperature_c;
 
-    const maxTemp = document.createElement('span');
+    const maxTemp = document.createElement("span");
     maxTemp.classList.add("weekly-max-temp");
     maxTemp.textContent = weeklyData[j].max_temperature_c;
 
     weeklyContainer.append(day, minTemp, maxTemp);
-    weeklyListWrapper.appendChild(weeklyContainer)
+    weeklyListWrapper.appendChild(weeklyContainer);
     weeklyDisplay.appendChild(weeklyListWrapper);
   }
   mainContainer.appendChild(weeklyDisplay);
 }
 
+function createDailyConditionsGrid(data) {
+  const dailyCondGrid = document.querySelector("#daily-conditions");
+
+  dailyCondGrid.textContent = "";
+
+  for (let k = 0; k < 9; k++) {
+    const gridItem = document.createElement("div");
+    gridItem.classList.add("daily-condition");
+    gridItem.id = k;
+    gridItem.textContent = data[k];
+
+    dailyCondGrid.appendChild(gridItem);
+  }
+}
+
 function showDailyForecastConditions(data) {
-    const conditionsText = document.querySelector("#daily-forecast-conditions");
-    conditionsText.textContent = data.weather.forecast.daily_condition;
+  const conditionsText = document.querySelector("#daily-forecast-conditions");
+  conditionsText.textContent = data.weather.forecast.daily_condition;
 }
 
 function showMessage(elementId) {

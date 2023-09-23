@@ -1,5 +1,5 @@
 import { showMessage, hideMessage } from "./domFunctions";
-import { extractDateAndTime, formatDate } from "./helperFunctions";
+import { extractDateAndTime, formatDate, formatTime24H } from "./helperFunctions";
 
 async function fetchWeatherData(city) {
   let weatherData = "";
@@ -35,8 +35,23 @@ function processWeatherData(data) {
       },
       forecast: {
         daily_condition: data.forecast.forecastday[0].day.condition.text,
-      }
+      },
+      wind: {
+        degree: data.current.wind_degree,
+        direction: data.current.wind_dir,
+      },
     },
+    dailyConditions: [
+      `${Math.round(data.current.wind_kph * 0.28 * 10)/10}m/s`,
+      `${data.current.humidity}%`,
+      data.current.uv,
+      `${data.current.vis_km}km`,
+      `${data.current.precip_mm}mm`,
+      `${data.forecast.forecastday[0].day.daily_chance_of_rain}%`,
+      formatTime24H(data.forecast.forecastday[0].astro.sunrise),
+      formatTime24H(data.forecast.forecastday[0].astro.sunset),
+      data.forecast.forecastday[0].astro.moon_phase,
+    ],
     hourly: [],
     daily: [],
   };
@@ -52,19 +67,19 @@ function processWeatherData(data) {
 
   for (let j = 1; j < 8; j++) {
     const timestamp = data.forecast.forecastday[j].date_epoch;
-    const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+    const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
     const newDate = new Date();
-    newDate.setTime(timestamp*1000);
+    newDate.setTime(timestamp * 1000);
     processedData.daily[j] = {
-        // date: formatDate(data.forecast.forecastday[j].date),
-        date: days[newDate.getDay()],
-        min_temperature_c: data.forecast.forecastday[j].day.mintemp_c,
-        max_temperature_c: data.forecast.forecastday[j].day.maxtemp_c,
-        //icon
-    //   time: extractDateAndTime(data.forecast.forecastday[0].hour[i].time).time,
-    //   // icon: ,
-    //   temperature_c: data.forecast.forecastday[0].hour[i].temp_c,
-    //   temperature_f: data.forecast.forecastday[0].hour[i].temp_f,
+      // date: formatDate(data.forecast.forecastday[j].date),
+      date: days[newDate.getDay()],
+      min_temperature_c: data.forecast.forecastday[j].day.mintemp_c,
+      max_temperature_c: data.forecast.forecastday[j].day.maxtemp_c,
+      //icon
+      //   time: extractDateAndTime(data.forecast.forecastday[0].hour[i].time).time,
+      //   // icon: ,
+      //   temperature_c: data.forecast.forecastday[0].hour[i].temp_c,
+      //   temperature_f: data.forecast.forecastday[0].hour[i].temp_f,
     };
   }
   return processedData;

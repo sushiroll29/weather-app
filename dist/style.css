@@ -132,3 +132,9 @@ ul {
     gap: 2rem;
 }
 
+#daily-conditions {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 3rem;
+}
+
