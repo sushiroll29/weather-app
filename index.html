@@ -6,9 +6,13 @@
     <title>Weather App</title>
     <script src="main.js" defer></script>
     <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inclusive+Sans&display=swap" rel="stylesheet">
+<link type="image/png" rel="icon" href="./assets/cloud.png" />
 </head>
 <body>
-    <input type="search">
+    <input type="search" id="search-location">
     <div class="main-container">
         <!-- <header></header> -->
         <span id="loading">Loading</span>
@@ -35,10 +39,6 @@
                     </div>
                     <div id="daily-conditions"></div>
                 </div>
-                
-                    
-                
-                
                 <p id="daily-forecast-conditions"></p>
                 <div id="hourly-display">
                     <button class="slide-arrow" id="slide-arrow-prev">
@@ -52,10 +52,8 @@
                 <div id="weekly-display">
                     <ul class="weekly-content"></ul>
                 </div>
-                
                 <div class="weather-details"></div>
         </div>
-        
     </div>
 </body>
 </html>
