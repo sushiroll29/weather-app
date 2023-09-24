@@ -11,19 +11,52 @@ body {
   padding: 0;
   margin: 0;
   font-size: 1rem;
-  color: var(--font-color);
+  font-weight: bold;
+  color: rgb(233, 233, 233);
   font-family: "Nunito", sans-serif;
+}
+
+
+body {
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url("./assets/weather-app-wp1.jpeg");
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 ul {
   list-style: none;
 }
 
-.content > .location-details {
+h2 {
+    display: inline;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+}
+
+.content > .location-details  {
   display: flex;
   flex-direction: column;
 }
 
+.location-details > .location-title  {
+text-align: center;
+font-size: 3rem;
+/* font-weight: bold; */
+}
+
+.location-details > .location-date-time {
+    text-align: center;
+    /* font-weight: bold; */
+}
+
+.location-date-time > h2
+ {
+    color: rgba(233, 233, 233, 0.8);
+    font-size: 1.5rem;
+ }
 .weather-main > #temp-description {
   display: flex;
   flex-direction: column;
@@ -61,6 +94,8 @@ ul {
 .hourly-wrapper-item {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  gap: 5px;
 }
 
 #hourly-display {
@@ -77,6 +112,10 @@ ul {
   scroll-behavior: smooth;
   scrollbar-width: none;
   -ms-overflow-style: none;
+}
+
+.hourly-icon {
+    width: 2rem;
 }
 
 .hourly-content > .hourly-wrapper-item {
@@ -103,7 +142,7 @@ ul {
   bottom: 0;
   margin: auto;
   height: 2rem;
-  background-color: white;
+  background-color: transparent;
   border: none;
   width: 2rem;
   font-size: 2rem;
@@ -157,4 +196,43 @@ ul {
 
 .weekly-icon {
   width: 2.5rem;
+}
+
+#temp-info > #temp {
+    /* margin-bottom: -2rem; */
+    display: flex;
+    align-items: center;
+    justify-items: center;
+}
+
+#temp-text {
+    font-size: 3rem;
+}
+/* 
+#temp-icon {
+
+} */
+
+.main-info-wrapper {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+    justify-content: center;
+    padding-top: 2rem;
+}
+
+/* .daily-condition-title {
+    font-weight: bold;
+} */
+
+.daily-condition-value {
+    font-weight: normal;
+}
+
+.weekly-min-temp {
+    color: rgba(233, 233, 233, 0.8)
+}
+
+#daily-forecast-conditions {
+    text-align: center;
 }

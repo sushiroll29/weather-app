@@ -33,6 +33,7 @@ function processWeatherData(data) {
       current: {
         temperature_c: data.current.temp_c,
         temperature_f: data.current.temp_f,
+        icon_src: `https:${data.current.condition.icon}`,
         feelsLike_c: data.current.feelslike_c,
         feelsLike_f: data.current.feelsLike_f,
         sky_conditions: data.current.condition.text,
@@ -68,8 +69,9 @@ function processWeatherData(data) {
 
   for (let i = 0; i < 24; i++) {
     processedData.hourly[i] = {
-      time: extractDateAndTime(data.forecast.forecastday[0].hour[i].time).time,
-      // icon: ,
+      time: extractDateAndTime(data.forecast.forecastday[0].hour[i].time).time.slice(0,2),
+      icon_src: `https:${data.forecast.forecastday[0].hour[i].condition.icon}`,
+      chance_of_rain: data.forecast.forecastday[0].hour[i].chance_of_rain,
       temperature_c: data.forecast.forecastday[0].hour[i].temp_c,
       temperature_f: data.forecast.forecastday[0].hour[i].temp_f,
     };
@@ -77,7 +79,7 @@ function processWeatherData(data) {
 
   for (let j = 1; j < 8; j++) {
     const timestamp = data.forecast.forecastday[j].date_epoch;
-    const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+    const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
     const newDate = new Date();
     newDate.setTime(timestamp * 1000);
     processedData.daily[j] = {

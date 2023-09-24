@@ -6,6 +6,7 @@ async function populateDOM(data) {
   const locationDate = document.querySelector("#location-date");
   const locationTime = document.querySelector("#location-time");
   const tempText = document.querySelector("#temp-text");
+  const tempIcon = document.querySelector("#temp-icon");
   const tempDescSky = document.querySelector("#sky-conditions");
   const tempDescFeelsLike = document.querySelector("#feels-like");
 
@@ -18,13 +19,14 @@ async function populateDOM(data) {
     const date = extractDateAndTime(
       processedWeatherData.location.date_time
     ).date;
-    locationDate.textContent = `${date}`;
+    locationDate.textContent = `${date} | `;
 
     const time = extractDateAndTime(
       processedWeatherData.location.date_time
     ).time;
     locationTime.textContent = `${time}`;
 
+    tempIcon.src = `${processedWeatherData.weather.current.icon_src}`;
     tempText.textContent = `${processedWeatherData.weather.current.temperature_c}°C`;
     tempDescSky.textContent = `${processedWeatherData.weather.current.sky_conditions}`;
     tempDescFeelsLike.textContent = `Feels like ${processedWeatherData.weather.current.feelsLike_c}°C`;
@@ -54,11 +56,19 @@ function createHourlyDisplay(hourlyData) {
     time.classList.add("hourly-time");
     time.textContent = hourlyData[i].time;
 
+    const icon = document.createElement("img");
+    icon.classList.add("hourly-icon");
+    icon.src = hourlyData[i].icon_src;
+
+    const chanceOfRain = document.createElement("span");
+    chanceOfRain.classList.add("hourly-rain");
+    chanceOfRain.textContent = `${hourlyData[i].chance_of_rain}%`;
+
     const temp = document.createElement("span");
     temp.classList.add("hourly-temp");
-    temp.textContent = `${hourlyData[i].temperature_c}°C`;
+    temp.textContent = `${hourlyData[i].temperature_c}°`;
 
-    hourlyContainer.append(time, temp);
+    hourlyContainer.append(time, icon, chanceOfRain, temp);
     hourlyListWrapper.append(hourlyContainer);
     hourlyDisplay.appendChild(hourlyListWrapper);
   }
@@ -104,11 +114,11 @@ function createWeeklyDisplay(weeklyData) {
 
     const minTemp = document.createElement("span");
     minTemp.classList.add("weekly-min-temp");
-    minTemp.textContent = weeklyData[j].min_temperature_c;
+    minTemp.textContent = `${weeklyData[j].min_temperature_c}°C`;
 
     const maxTemp = document.createElement("span");
     maxTemp.classList.add("weekly-max-temp");
-    maxTemp.textContent = weeklyData[j].max_temperature_c;
+    maxTemp.textContent = `${weeklyData[j].max_temperature_c}°C`;
 
     weeklyContainer.append(day, icon, minTemp, maxTemp);
     weeklyListWrapper.appendChild(weeklyContainer);
