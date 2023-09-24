@@ -1,5 +1,9 @@
 import { showMessage, hideMessage } from "./domFunctions";
-import { extractDateAndTime, formatDate, formatTime24H } from "./helperFunctions";
+import {
+  extractDateAndTime,
+  formatDate,
+  formatTime24H,
+} from "./helperFunctions";
 
 async function fetchWeatherData(city) {
   let weatherData = "";
@@ -42,15 +46,21 @@ function processWeatherData(data) {
       },
     },
     dailyConditions: [
-      `${Math.round(data.current.wind_kph * 0.28 * 10)/10}m/s`,
-      `${data.current.humidity}%`,
-      data.current.uv,
-      `${data.current.vis_km}km`,
-      `${data.current.precip_mm}mm`,
-      `${data.forecast.forecastday[0].day.daily_chance_of_rain}%`,
-      formatTime24H(data.forecast.forecastday[0].astro.sunrise),
-      formatTime24H(data.forecast.forecastday[0].astro.sunset),
-      data.forecast.forecastday[0].astro.moon_phase,
+      {
+        "Wind speed": `${
+          Math.round(data.current.wind_kph * 0.28 * 10) / 10
+        }m/s`,
+      },
+      { Humidity: `${data.current.humidity}%` },
+      { "UV index": data.current.uv },
+      { Visibility: `${data.current.vis_km}km` },
+      { Precipitation: `${data.current.precip_mm}mm` },
+      {
+        "Chance of rain": `${data.forecast.forecastday[0].day.daily_chance_of_rain}%`,
+      },
+      { Sunrise: formatTime24H(data.forecast.forecastday[0].astro.sunrise) },
+      { Sunset: formatTime24H(data.forecast.forecastday[0].astro.sunset) },
+      { "Moon phase": data.forecast.forecastday[0].astro.moon_phase },
     ],
     hourly: [],
     daily: [],
@@ -73,6 +83,7 @@ function processWeatherData(data) {
     processedData.daily[j] = {
       // date: formatDate(data.forecast.forecastday[j].date),
       date: days[newDate.getDay()],
+      icon_src: `https:${data.forecast.forecastday[j].day.condition.icon}`,
       min_temperature_c: data.forecast.forecastday[j].day.mintemp_c,
       max_temperature_c: data.forecast.forecastday[j].day.maxtemp_c,
       //icon
@@ -83,16 +94,6 @@ function processWeatherData(data) {
     };
   }
   return processedData;
-  //   {
-
-  //       forecast: {
-  //         temperature_c: data.forecast.forecastday.temp_c,
-  //         temperature_f: data.current.temp_f,
-  //         feelsLike_c: data.current.feelslike_c,
-  //         feelsLike_f: data.current.feelsLike_f,
-  //         sky_conditions: data.current.condition.text,
-  //       },
-  //     }
 }
 
 export { fetchWeatherData, processWeatherData };

@@ -92,11 +92,15 @@ function createWeeklyDisplay(weeklyData) {
   for (let j = 1; j < 8; j++) {
     const weeklyContainer = document.createElement("li");
     weeklyContainer.classList.add("weekly-wrapper-item");
-    weeklyContainer.id = `${j}`;
+    weeklyContainer.id = j;
 
     const day = document.createElement("span");
     day.classList.add("weekly-day");
     day.textContent = weeklyData[j].date;
+
+    const icon = document.createElement("img");
+    icon.classList.add("weekly-icon");
+    icon.src = weeklyData[j].icon_src;
 
     const minTemp = document.createElement("span");
     minTemp.classList.add("weekly-min-temp");
@@ -106,7 +110,7 @@ function createWeeklyDisplay(weeklyData) {
     maxTemp.classList.add("weekly-max-temp");
     maxTemp.textContent = weeklyData[j].max_temperature_c;
 
-    weeklyContainer.append(day, minTemp, maxTemp);
+    weeklyContainer.append(day, icon, minTemp, maxTemp);
     weeklyListWrapper.appendChild(weeklyContainer);
     weeklyDisplay.appendChild(weeklyListWrapper);
   }
@@ -122,8 +126,16 @@ function createDailyConditionsGrid(data) {
     const gridItem = document.createElement("div");
     gridItem.classList.add("daily-condition");
     gridItem.id = k;
-    gridItem.textContent = data[k];
 
+    const gridItemTitle = document.createElement("p");
+    gridItemTitle.classList.add("daily-condition-title");
+    gridItemTitle.textContent = `${Object.keys(data[k])}`;
+
+    const gridItemValue = document.createElement("p");
+    gridItemValue.classList.add("daily-condition-value");
+    gridItemValue.textContent = `${Object.values(data[k])}`;
+    
+    gridItem.append(gridItemTitle, gridItemValue);
     dailyCondGrid.appendChild(gridItem);
   }
 }
