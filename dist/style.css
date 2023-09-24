@@ -13,14 +13,20 @@ body {
   font-size: 1rem;
   font-weight: bold;
   color: rgb(233, 233, 233);
-  font-family: "Nunito", sans-serif;
+  font-family: "Inclusive Sans", sans-serif;
 }
 
-
 body {
-    background-image: linear-gradient(to right, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url("./assets/weather-app-wp1.jpeg");
-    background-repeat: no-repeat;
-    background-size: cover;
+  background-image: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 0.4),
+      rgba(0, 0, 0, 0.4)
+    ),
+    url("./assets/weather-app-wp1.jpeg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
 }
 
 ul {
@@ -28,35 +34,35 @@ ul {
 }
 
 h2 {
-    display: inline;
+  display: inline;
 }
+
 
 .content {
-    display: flex;
-    flex-direction: column;
-}
-
-.content > .location-details  {
   display: flex;
   flex-direction: column;
 }
 
-.location-details > .location-title  {
-text-align: center;
-font-size: 3rem;
-/* font-weight: bold; */
+.content > .location-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.location-details > .location-title {
+  text-align: center;
+  font-size: 3rem;
+  /* font-weight: bold; */
 }
 
 .location-details > .location-date-time {
-    text-align: center;
-    /* font-weight: bold; */
+  text-align: center;
+  /* font-weight: bold; */
 }
 
-.location-date-time > h2
- {
-    color: rgba(233, 233, 233, 0.8);
-    font-size: 1.5rem;
- }
+.location-date-time > h2 {
+  color: rgba(233, 233, 233, 0.7);
+  font-size: 1.25rem;
+}
 .weather-main > #temp-description {
   display: flex;
   flex-direction: column;
@@ -115,7 +121,7 @@ font-size: 3rem;
 }
 
 .hourly-icon {
-    width: 2rem;
+  width: 2rem;
 }
 
 .hourly-content > .hourly-wrapper-item {
@@ -176,8 +182,14 @@ font-size: 3rem;
   display: grid;
   gap: 2rem;
   align-items: center;
-  padding: 0 30%;
+  margin: 0 30%;
+  padding: 0 10px;
   grid-template-columns: 2fr repeat(3, 1fr);
+  border-bottom: solid 1px white;
+}
+
+.weekly-content > .weekly-wrapper-item:last-of-type {
+    border-bottom: none;
 }
 
 .weekly-day {
@@ -187,7 +199,7 @@ font-size: 3rem;
 #daily-conditions {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  gap: 3rem;
+  gap: 2rem;
 }
 
 #daily-forecast-conditions {
@@ -199,14 +211,14 @@ font-size: 3rem;
 }
 
 #temp-info > #temp {
-    /* margin-bottom: -2rem; */
-    display: flex;
-    align-items: center;
-    justify-items: center;
+  /* margin-bottom: -2rem; */
+  display: flex;
+  align-items: center;
+  justify-items: center;
 }
 
 #temp-text {
-    font-size: 3rem;
+  font-size: 3rem;
 }
 /* 
 #temp-icon {
@@ -214,25 +226,42 @@ font-size: 3rem;
 } */
 
 .main-info-wrapper {
-    display: flex;
-    gap: 2rem;
-    align-items: center;
-    justify-content: center;
-    padding-top: 2rem;
+  display: flex;
+  gap: 3rem;
+  align-items: center;
+  justify-content: center;
+  padding-top: 3rem;
 }
 
-/* .daily-condition-title {
-    font-weight: bold;
-} */
+.daily-condition-title {
+  font-weight: bold;
+  color: rgba(233, 233, 233, 0.7);
+}
 
 .daily-condition-value {
-    font-weight: normal;
+  /* font-weight: normal; */
+  font-size: 1.5rem;
 }
 
 .weekly-min-temp {
-    color: rgba(233, 233, 233, 0.8)
+  color: rgba(233, 233, 233, 0.7);
 }
 
 #daily-forecast-conditions {
-    text-align: center;
+  text-align: center;
+}
+
+#weekly-display {
+  padding-top: 2rem;
+}
+
+#search-location {
+    margin-top: 2rem;
+    padding: .3rem .75rem;
+    width: 15%;
+    border-radius: 20px;
+    border: none;
+    align-self: center;
+    color: black;
+
 }

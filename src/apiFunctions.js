@@ -69,7 +69,9 @@ function processWeatherData(data) {
 
   for (let i = 0; i < 24; i++) {
     processedData.hourly[i] = {
-      time: extractDateAndTime(data.forecast.forecastday[0].hour[i].time).time.slice(0,2),
+      time: extractDateAndTime(
+        data.forecast.forecastday[0].hour[i].time
+      ).time.slice(0, 2),
       icon_src: `https:${data.forecast.forecastday[0].hour[i].condition.icon}`,
       chance_of_rain: data.forecast.forecastday[0].hour[i].chance_of_rain,
       temperature_c: data.forecast.forecastday[0].hour[i].temp_c,

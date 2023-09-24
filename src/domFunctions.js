@@ -120,6 +120,7 @@ function createWeeklyDisplay(weeklyData) {
     maxTemp.classList.add("weekly-max-temp");
     maxTemp.textContent = `${weeklyData[j].max_temperature_c}°C`;
 
+
     weeklyContainer.append(day, icon, minTemp, maxTemp);
     weeklyListWrapper.appendChild(weeklyContainer);
     weeklyDisplay.appendChild(weeklyListWrapper);
@@ -144,7 +145,7 @@ function createDailyConditionsGrid(data) {
     const gridItemValue = document.createElement("p");
     gridItemValue.classList.add("daily-condition-value");
     gridItemValue.textContent = `${Object.values(data[k])}`;
-    
+
     gridItem.append(gridItemTitle, gridItemValue);
     dailyCondGrid.appendChild(gridItem);
   }
@@ -152,7 +153,7 @@ function createDailyConditionsGrid(data) {
 
 function showDailyForecastConditions(data) {
   const conditionsText = document.querySelector("#daily-forecast-conditions");
-  conditionsText.textContent = data.weather.forecast.daily_condition;
+  conditionsText.textContent = `${data.weather.forecast.daily_condition} today`;
 }
 
 function showMessage(elementId) {
