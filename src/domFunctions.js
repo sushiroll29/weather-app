@@ -36,6 +36,7 @@ async function populateDOM(data) {
     createDailyConditionsGrid(processedWeatherData.dailyConditions);
     createHourlyDisplay(processedWeatherData.hourly);
     createWeeklyDisplay(processedWeatherData.daily);
+
     searchInput.blur();
   } catch (err) {
     // alert("Location not found.")
@@ -140,7 +141,7 @@ function createDailyConditionsGrid(data) {
   for (let k = 0; k < 9; k++) {
     const gridItem = document.createElement("div");
     gridItem.classList.add("daily-condition");
-    gridItem.id = k;
+    gridItem.id = `daily-cond-${k}`;
 
     const gridItemTitle = document.createElement("p");
     gridItemTitle.classList.add("daily-condition-title");
@@ -148,11 +149,13 @@ function createDailyConditionsGrid(data) {
 
     const gridItemValue = document.createElement("p");
     gridItemValue.classList.add("daily-condition-value");
+    gridItemValue.id = `daily-cond-value-${k}`;
     gridItemValue.textContent = `${Object.values(data[k])}`;
 
     gridItem.append(gridItemTitle, gridItemValue);
     dailyCondGrid.appendChild(gridItem);
   }
+  setMoonPhaseIcon();
 }
 
 function showDailyForecastConditions(data) {
@@ -172,6 +175,42 @@ function hideMessage(elementId) {
   const content = document.querySelector(".content");
   content.style.display = "block";
   loader.classList.remove("active");
+}
+
+function setMoonPhaseIcon() {
+  const moonPhaseWrapper = document.querySelector("#daily-cond-8");
+  const moonPhaseInfo = document.querySelector("#daily-cond-value-8");
+  const moonIcon = document.createElement("img");
+  moonIcon.id = "moon-icon";
+  moonIcon.alt = `${moonPhaseInfo.textContent}`;
+  moonPhaseWrapper.appendChild(moonIcon);
+
+  switch (moonPhaseInfo.textContent) {
+    case "Waxing Gibbous":
+      moonPhaseInfo.textContent = "";
+      moonIcon.src = "./assets/moonPhases/waxing-gibbous.png";
+      break;
+    case "Waning Gibbous":
+      moonPhaseInfo.textContent = "";
+      moonIcon.src = "./assets/moonPhases/waning-gibbous.png";
+      break;
+    case "Waxing Crescent":
+      moonPhaseInfo.textContent = "";
+      moonIcon.src = "./assets/moonPhases/waxing-crescent.png";
+      break;
+    case "Waning Crescent":
+      moonPhaseInfo.textContent = "";
+      moonIcon.src = "./assets/moonPhases/waning-crescent.png";
+      break;
+    case "New Moon":
+      moonPhaseInfo.textContent = "";
+      moonIcon.src = "./assets/moonPhases/new-moon.png";
+      break;
+    case "First Quarter":
+      moonPhaseInfo.textContent = "";
+      moonIcon.src = "./assets/moonPhases/first-quarter.png";
+      break;
+  }
 }
 
 export { populateDOM, showMessage, hideMessage };

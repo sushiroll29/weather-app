@@ -86,16 +86,10 @@ function processWeatherData(data) {
     const newDate = new Date();
     newDate.setTime(timestamp * 1000);
     processedData.daily[j] = {
-      // date: formatDate(data.forecast.forecastday[j].date),
       date: days[newDate.getDay()],
       icon_src: `https:${data.forecast.forecastday[j].day.condition.icon}`,
       min_temperature_c: data.forecast.forecastday[j].day.mintemp_c,
       max_temperature_c: data.forecast.forecastday[j].day.maxtemp_c,
-      //icon
-      //   time: extractDateAndTime(data.forecast.forecastday[0].hour[i].time).time,
-      //   // icon: ,
-      //   temperature_c: data.forecast.forecastday[0].hour[i].temp_c,
-      //   temperature_f: data.forecast.forecastday[0].hour[i].temp_f,
     };
   }
   return processedData;
