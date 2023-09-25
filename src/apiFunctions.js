@@ -9,6 +9,7 @@ async function fetchWeatherData(city) {
   let weatherData = "";
   const key = "09da037b5d294e72bb6101013231709";
   try {
+    hideMessage("error");
     showMessage("loading");
     let response = await fetch(
       `https://api.weatherapi.com/v1/forecast.json?key=${key}&q=${city}&days=8`,

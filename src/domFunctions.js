@@ -9,6 +9,7 @@ async function populateDOM(data) {
   const tempIcon = document.querySelector("#temp-icon");
   const tempDescSky = document.querySelector("#sky-conditions");
   const tempDescFeelsLike = document.querySelector("#feels-like");
+  const searchInput = document.querySelector("#search-input");
 
   try {
     const weatherData = await fetchWeatherData(`${data}`);
@@ -35,7 +36,11 @@ async function populateDOM(data) {
     createDailyConditionsGrid(processedWeatherData.dailyConditions);
     createHourlyDisplay(processedWeatherData.hourly);
     createWeeklyDisplay(processedWeatherData.daily);
+    searchInput.blur();
   } catch (err) {
+    // alert("Location not found.")
+    showMessage("error");
+    searchInput.blur();
     console.log(err);
   }
 }
@@ -119,7 +124,6 @@ function createWeeklyDisplay(weeklyData) {
     const maxTemp = document.createElement("span");
     maxTemp.classList.add("weekly-max-temp");
     maxTemp.textContent = `${weeklyData[j].max_temperature_c}°C`;
-
 
     weeklyContainer.append(day, icon, minTemp, maxTemp);
     weeklyListWrapper.appendChild(weeklyContainer);

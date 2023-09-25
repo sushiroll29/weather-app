@@ -1,59 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Weather App</title>
     <script src="main.js" defer></script>
-    <link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inclusive+Sans&display=swap" rel="stylesheet">
-<link type="image/png" rel="icon" href="./assets/cloud.png" />
-</head>
-<body>
-    <input type="search" id="search-location">
-    <div class="main-container">
-        <!-- <header></header> -->
-        <span id="loading">Loading</span>
-        <div class="content">
-            <p id="error">Location not found</p>
-            <div class="location-details">
-                <h1 class="location-title"></h1>
-                <div class="location-date-time">
-                    <h2 id="location-date"></h2>
-                    <h2 id="location-time"></h2>
-                </div>
-            </div>
-            <div class="weather-main">
-                <div class="main-info-wrapper">
-                    <div id="temp-info">
-                        <div id="temp">
-                            <img alt="" id="temp-icon">
-                            <h2 id="temp-text"></h2>
-                        </div>
-                        <div id="temp-description">
-                            <h3 id="sky-conditions"></h3>
-                            <h3 id="feels-like"></h3>
-                        </div>
-                    </div>
-                    <div id="daily-conditions"></div>
-                </div>
-                <p id="daily-forecast-conditions"></p>
-                <div id="hourly-display">
-                    <button class="slide-arrow" id="slide-arrow-prev">
-                        &#8249;
-                      </button>
-                      <button class="slide-arrow" id="slide-arrow-next">
-                        &#8250;
-                      </button>
-                    <ul class="hourly-content"></ul>
-                </div>
-                <div id="weekly-display">
-                    <ul class="weekly-content"></ul>
-                </div>
-                <div class="weather-details"></div>
-        </div>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inclusive+Sans&display=swap"
+      rel="stylesheet"
+    />
+    <link type="image/png" rel="icon" href="./assets/cloud.png" />
+  </head>
+  <body>
+    <div class="search">
+      <input
+        type="text"
+        id="search-input"
+        placeholder="City name..."
+        pattern="^([a-zA-Z\u0080-\u024F]+(?:. |-| |'))*[a-zA-Z\u0080-\u024F]*$"
+      />
+      <button>
+        <img src="./assets//search.png" alt="search" id="search-icon" />
+      </button>
     </div>
-</body>
+
+    <div class="main-container">
+      <!-- <header></header> -->
+      <div id="loading"></div>
+      <div id="error">
+        <p>Location not found.</p>
+        <p>Please enter a valid city or country name.</p>
+      </div>
+      <div class="content">
+        <div class="location-details">
+          <h1 class="location-title"></h1>
+          <div class="location-date-time">
+            <h2 id="location-date"></h2>
+            <h2 id="location-time"></h2>
+          </div>
+        </div>
+        <div class="weather-main">
+          <div class="main-info-wrapper">
+            <div id="temp-info">
+              <div id="temp">
+                <img alt="" id="temp-icon" />
+                <h2 id="temp-text"></h2>
+              </div>
+              <div id="temp-description">
+                <h3 id="sky-conditions"></h3>
+                <h3 id="feels-like"></h3>
+              </div>
+            </div>
+            <div id="daily-conditions"></div>
+          </div>
+          <p id="daily-forecast-conditions"></p>
+          <div id="hourly-display">
+            <button class="slide-arrow" id="slide-arrow-prev">&#8249;</button>
+            <button class="slide-arrow" id="slide-arrow-next">&#8250;</button>
+            <ul class="hourly-content"></ul>
+          </div>
+          <div id="weekly-display">
+            <ul class="weekly-content"></ul>
+          </div>
+          <div class="weather-details"></div>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

@@ -14,7 +14,8 @@ function formatDate(date) {
 }
 
 function searchWeatherByCity() {
-  const input = document.querySelector("input");
+  const input = document.querySelector("#search-input");
+  const button = document.querySelector("#search-icon");
   let city = "";
 
   input.addEventListener("keyup", (e) => {
@@ -25,6 +26,15 @@ function searchWeatherByCity() {
       input.value = "";
       populateDOM(city);
     }
+  });
+
+  button.addEventListener("click", (e) => {
+    e.preventDefault();
+    if (input.value) {
+      city = input.value;
+    } else return;
+    input.value = "";
+    populateDOM(city);
   });
 }
 
