@@ -105,7 +105,7 @@ function createWeeklyDisplay(weeklyData) {
 
   weeklyListWrapper.textContent = "";
 
-  for (let j = 1; j < 8; j++) {
+  for (let j = 0; j < 3; j++) {
     const weeklyContainer = document.createElement("li");
     weeklyContainer.classList.add("weekly-wrapper-item");
     weeklyContainer.id = j;

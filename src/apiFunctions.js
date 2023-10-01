@@ -80,9 +80,9 @@ function processWeatherData(data) {
     };
   }
 
-  for (let j = 1; j < 8; j++) {
+  for (let j = 0; j < 3; j++) {
     const timestamp = data.forecast.forecastday[j].date_epoch;
-    const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+    const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
     const newDate = new Date();
     newDate.setTime(timestamp * 1000);
     processedData.daily[j] = {
@@ -92,6 +92,7 @@ function processWeatherData(data) {
       max_temperature_c: data.forecast.forecastday[j].day.maxtemp_c,
     };
   }
+  console.log(processedData.daily);
   return processedData;
 }
 
